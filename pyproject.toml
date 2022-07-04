@@ -8,6 +8,7 @@ authors = ["Valexandrin <alex-vadim@mail.ru>"]
 python = "^3.10"
 Flask = "^2.1.2"
 pydantic = "^1.9.1"
+httpx = "^0.23.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="col">
+    <div class="list-group">
+        {% for vacancy in vacancies %}
+        <a href="{{ url_for('vacancies.show_vacancy', uid=vacancy.uid) }}" class="list-group-item list-group-item-action" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ vacancy.name }}</h5>
+            <small>{{ vacancy.published_at }}</small>
+        </div>
+        <p class="mb-1">{{ vacancy.employer }}</p>
+        <small>{{ vacancy.requirement|safe }}</small>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="col">
+    {{ vacancy_text|safe }}
+</div>
+
+
+
+{% endblock %}
