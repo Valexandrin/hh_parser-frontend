@@ -8,8 +8,8 @@ class VacancyClient:
     def __init__(self, url: str) -> None:
         self.url = f'{url}/vacancies'
 
-    def get_all(self) -> list[Vacancy]:
-        res = httpx.get(f'{self.url}/')
+    def get_all(self, status) -> list[Vacancy]:
+        res = httpx.get(f'{self.url}/{status}')
         res.raise_for_status()
 
         vacancies = res.json()
@@ -23,6 +23,12 @@ class VacancyClient:
         vacancy = Vacancy(**res.json())
 
         return vacancy
+
+    def change_status(self, vacancy_id: int, status: str='seen') -> None:
+        params = {
+            'status': status,
+        }
+        httpx.put(f'{self.url}/{vacancy_id}', json=params)
 
 
 vacancies = VacancyClient(config.endpoint.url)

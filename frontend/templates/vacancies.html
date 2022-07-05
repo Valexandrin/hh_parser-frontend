@@ -2,27 +2,45 @@
 
 {% block content %}
 
-
-<div class="col">
-    <div class="list-group">
-        {% for vacancy in vacancies %}
-        <a href="{{ url_for('vacancies.show_vacancy', uid=vacancy.uid) }}" class="list-group-item list-group-item-action" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ vacancy.name }}</h5>
-            <small>{{ vacancy.published_at }}</small>
+<div class="row">
+    <div class="col overflow-auto vh-100">
+        <div class="list-group">
+            {% for vacancy in vacancies %}
+                <a href="{{ url_for('vacancies.show_vacancy', status=vacancies_status, uid=vacancy.uid) }}" class="list-group-item list-group-item-action" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ vacancy.name }}</h5>
+                    {% if vacancy.status == 'new' %}
+                        <small class="list-group-item-success">{{ vacancy.status }}</small>
+                    {% else: %}
+                        <small class="list-group-item-warning">{{ vacancy.status }}</small>
+                    {% endif %}
+                    <small>{{ vacancy.published_at.strftime('%d %B %Y  %H:%M') }}</small>
+                    </div>
+                    <p class="mb-1">{{ vacancy.employer }} | {{ vacancy.area }} | {{ vacancy.schedule }}</p>
+                    <small>{{ vacancy.requirement|safe }}</small><br>
+                    <small>{{ vacancy.responsibility|safe }}</small>
+                </a>
+            {% endfor %}
         </div>
-        <p class="mb-1">{{ vacancy.employer }}</p>
-        <small>{{ vacancy.requirement|safe }}</small>
-        </a>
-        {% endfor %}
+    </div>
+    <div class="col overflow-auto vh-100">
+        <div class="row">
+            <div class="d-flex w-100 justify-content-between">
+                <a href="{{ url }}" target="_blank">
+                    <h5 class="mb-1">{{ employer }}</h5>
+                </a>
+                <small>{{ area }}</small>
+                <small>{{ date }}</small>
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+                <small>{{ vacancy }}</small>
+                <small>{{ schedule }}</small>
+            </div>
+            <p class="mb-1">{{ salary_from }} - {{ salary_to }}</p>
+        </div>
+
+        {{ description|safe }}
     </div>
 </div>
-
-
-<div class="col">
-    {{ vacancy_text|safe }}
-</div>
-
-
 
 {% endblock %}

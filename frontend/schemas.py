@@ -5,7 +5,7 @@ from datetime import datetime
 class Vacancy(BaseModel):
     uid: int
     area: str
-    description: str
+    description: str = None
     employer: str
     name: str
     published_at: datetime
@@ -15,4 +15,4 @@ class Vacancy(BaseModel):
     salary_to: str = None
     schedule: str
     status: str
-    url: str
+    url: str = None
