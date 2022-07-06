@@ -11,8 +11,10 @@
                     <h5 class="mb-1">{{ vacancy.name }}</h5>
                     {% if vacancy.status == 'new' %}
                         <small class="list-group-item-success">{{ vacancy.status }}</small>
+                    {% elif vacancy.status == 'like': %}
+                        <i class="fa-regular fa-heart"></i>
                     {% else: %}
-                        <small class="list-group-item-warning">{{ vacancy.status }}</small>
+                        <small>{{ vacancy.status }}</small>
                     {% endif %}
                     <small>{{ vacancy.published_at.strftime('%d %B %Y  %H:%M') }}</small>
                     </div>
