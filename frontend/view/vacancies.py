@@ -20,7 +20,7 @@ def show_vacancies(status: str=''):
 
 @view.route('/<int:uid>')
 @view.route('/<path:status>/<int:uid>')
-def show_vacancy(uid, status: str=''):
+def show_vacancy(uid: int, status: str=''):
     vacancy = vacancies.get_by_id(uid)
     vacancies.change_status(uid)
     all_vacancies = vacancies.get_all(status)
@@ -29,6 +29,7 @@ def show_vacancy(uid, status: str=''):
         'vacancies.html',
         vacancies = [vacancy.dict() for vacancy in all_vacancies],
         vacancies_status = status,
+        uid = vacancy.uid,
         description = vacancy.description,
         employer = vacancy.employer,
         url = vacancy.url,
