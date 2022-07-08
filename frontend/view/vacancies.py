@@ -14,6 +14,7 @@ def show_vacancies(status: str=''):
     return render_template(
         'vacancies.html',
         vacancies = [vacancy.dict() for vacancy in all_vacancies],
+        quantity = len(all_vacancies),
         vacancies_status = status,
     )
 

@@ -2,47 +2,66 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col overflow-auto vh-100">
-        <div class="list-group">
-            {% for vacancy in vacancies %}
-                <a href="{{ url_for('vacancies.show_vacancy', status=vacancies_status, uid=vacancy.uid) }}" class="list-group-item list-group-item-action" aria-current="true">
-                    <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ vacancy.name }}</h5>
-                    {% if vacancy.status == 'new' %}
-                        <small class="list-group-item-success">{{ vacancy.status }}</small>
-                    {% elif vacancy.status == 'like': %}
-                        <i class="fa-regular fa-heart"></i>
-                    {% else: %}
-                        <small>{{ vacancy.status }}</small>
-                    {% endif %}
-                    <small>{{ vacancy.published_at.strftime('%d %B %Y  %H:%M') }}</small>
-                    </div>
-                    <p class="mb-1">{{ vacancy.employer }} | {{ vacancy.area }} | {{ vacancy.schedule }}</p>
-                    <small>{{ vacancy.requirement|safe }}</small><br>
-                    <small>{{ vacancy.responsibility|safe }}</small>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="col overflow-auto vh-100">
-        <div class="row">
-            <div class="d-flex w-100 justify-content-between">
-                <a href="{{ url }}" target="_blank">
-                    <h5 class="mb-1">{{ employer }}</h5>
-                </a>
-                <small>{{ area }}</small>
-                <small>{{ date }}</small>
-            </div>
-            <div class="d-flex w-100 justify-content-between">
-                <small>{{ vacancy }}</small>
-                <small>{{ schedule }}</small>
-            </div>
-            <p class="mb-1">{{ salary_from }} - {{ salary_to }}</p>
-        </div>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('vacancies.show_vacancies') }}"> Vacancies </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        {{ description|safe }}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('vacancies.show_vacancies', status='new') }}">New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('vacancies.show_vacancies', status='like') }}">Like</a>
+                    </li>
+                </ul>
+                {{ quantity }}
+            </div>
+    </div>
+</nav>
+
+<div class="col overflow-auto vh-100">
+    <div class="list-group">
+        {% for vacancy in vacancies %}
+            <a href="{{ url_for('vacancies.show_vacancy', status=vacancies_status, uid=vacancy.uid) }}" class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ vacancy.name }}</h5>
+                {% if vacancy.status == 'new' %}
+                    <small class="list-group-item-success">{{ vacancy.status }}</small>
+                {% elif vacancy.status == 'like': %}
+                    <i class="fa-regular fa-heart"></i>
+                {% else: %}
+                    <small class="list-group-item-secondary">{{ vacancy.status }}</small>
+                {% endif %}
+                <small>{{ vacancy.published_at.strftime('%d %B %Y  %H:%M') }}</small>
+                </div>
+                <p class="mb-1">{{ vacancy.employer }} | {{ vacancy.area }} | {{ vacancy.schedule }}</p>
+                <small>{{ vacancy.requirement|safe }}</small><br>
+                <small>{{ vacancy.responsibility|safe }}</small>
+            </a>
+        {% endfor %}
     </div>
 </div>
+<div class="col overflow-auto vh-100">
+    <div class="d-flex w-100 justify-content-between">
+        <a href="{{ url }}" target="_blank">
+            <h5 class="mb-1">{{ employer }}</h5>
+        </a>
+        <small>{{ area }}</small>
+        <small>{{ date }}</small>
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+        <small>{{ vacancy }}</small>
+        <small>{{ schedule }}</small>
+    </div>
+    <p class="mb-1">{{ salary_from }} - {{ salary_to }}</p>
+
+
+    {{ description|safe }}
+</div>
+
 
 {% endblock %}
