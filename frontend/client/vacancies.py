@@ -10,6 +10,7 @@ class VacancyClient:
 
     def get_all(self, status) -> list[Vacancy]:
         res = httpx.get(f'{self.url}/{status}')
+
         res.raise_for_status()
 
         vacancies = res.json()
