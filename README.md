@@ -2,7 +2,8 @@
 
 The service is designed for automatically vacancies collecting according to preferencies from resourse `https://hh.ru`
 
-![Alt-текст](https://github.com/Valexandrin/hh_parser-frontend/index.png?raw=true)
+![Alt-текст](https://github.com/Valexandrin/hh_parser-frontend/blob/main/index.png?raw=true)|
+:-:
 
 ## Project structure
 
@@ -59,7 +60,6 @@ make parse.run
 ```bash
 make run
 ```
-
 
 ## Resources used
 
